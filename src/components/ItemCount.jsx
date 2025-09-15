@@ -1,24 +1,17 @@
-import { useState } from "react";
+import React, { useState } from 'react'
 
-function ItemCount({ stock, initial }) {
-  const [count, setCount] = useState(initial);
+export default function ItemCount({ stock = 0, initial = 1, onAdd }){
+  const [qty, setQty] = useState(initial)
 
-  const increment = () => {
-    if (count < stock) setCount(count + 1);
-  };
-
-  const decrement = () => {
-    if (count > 1) setCount(count - 1);
-  };
+  function inc(){ setQty(q => Math.min(q+1, stock)) }
+  function dec(){ setQty(q => Math.max(q-1, 1)) }
 
   return (
-    <div>
-      <button onClick={decrement}>-</button>
-      <span style={{ margin: "0 10px" }}>{count}</span>
-      <button onClick={increment}>+</button>
-      <button style={{ marginLeft: "10px" }}>Agregar al carrito</button>
+    <div style={{display:'flex', gap:8, alignItems:'center'}}>
+      <button className="button" onClick={dec} disabled={qty<=1}>-</button>
+      <div className="small">{qty}</div>
+      <button className="button" onClick={inc} disabled={qty>=stock}>+</button>
+      <button className="button" onClick={() => onAdd(qty)} disabled={stock<=0}>Agregar al carrito</button>
     </div>
-  );
+  )
 }
-
-export default ItemCount;

@@ -1,13 +1,10 @@
-import Item from "./Item";
+import React from 'react'
+import Item from './Item'
 
-function ItemList({ products }) {
+export default function ItemList({ items }){
   return (
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: "20px" }}>
-      {products.map((prod) => (
-        <Item key={prod.id} product={prod} />
-      ))}
+    <div className="grid" role="list">
+      {items.map(i => <Item key={i.id} item={i} />)}
     </div>
-  );
+  )
 }
-
-export default ItemList;

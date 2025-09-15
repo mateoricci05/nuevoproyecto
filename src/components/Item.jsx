@@ -1,13 +1,18 @@
-import { Link } from "react-router-dom";
+import React from 'react'
+import { Link } from 'react-router-dom'
 
-function Item({ product }) {
+export default function Item({ item }){
   return (
-    <div style={{ border: "1px solid #ccc", padding: "10px", borderRadius: "10px" }}>
-      <h3>{product.name}</h3>
-      <p>Precio: ${product.price}</p>
-      <Link to={`/item/${product.id}`}>Ver detalle</Link>
-    </div>
-  );
+    <article className="card" role="listitem">
+      <div style={{height:120}} className="center">
+        <img src={item.image || 'https://via.placeholder.com/200x120?text=Producto'} alt={item.title} style={{maxHeight:120}}/>
+      </div>
+      <h3>{item.title}</h3>
+      <p className="small">{item.description}</p>
+      <div style={{display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+        <strong>${item.price}</strong>
+        <Link to={'/product/' + item.id} className="button small">Ver</Link>
+      </div>
+    </article>
+  )
 }
-
-export default Item;
